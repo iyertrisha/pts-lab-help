@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/complete_lab_exam_guide_v2.html",
+      "destination": "/index.html"
+    }
+  ]
+}
